@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    height: 480px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calculator, .display-area, .key-row {
+    width: 360px;
+}
+
+.display-area, .key-row {
+    height: 80px;
+}
+
+.display-area {
+    border: 1px solid black;
+    flex-shrink: 0;
+}
+
+.key-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    width: 90px;
+    flex-grow: 1;
+    font-size: x-large;
+}
