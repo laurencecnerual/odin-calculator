@@ -1,22 +1,24 @@
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
+let displayText = "";
 
 let firstInputComplete = false;
 let secondInputComplete = false;
 
 const display = document.querySelector(".display-area");
-console.log(display);
 
 const buttons = Array.from(document.querySelectorAll("button"));
-console.log(buttons);
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         if (button.classList.contains("number")) {
             buildNumber(button.textContent);
-        } else if (button.classList.contains("function")) {
-            //TBD
+        } else if (button.classList.contains("math-op")) {
+            setOperator(button.textContent);
+        } else if (button.id == "equal") {
+            displayText = operate(Number(firstNumber), operator, Number(secondNumber));
+            updateDisplay();
         }
     });
 });
@@ -24,12 +26,39 @@ buttons.forEach((button) => {
 function buildNumber(value) {
     if (!firstInputComplete) {
         firstNumber += value;
-        console.log(firstNumber);
+        displayText = firstNumber;
+        updateDisplay();
     } else if (!secondInputComplete) {
         secondNumber += value;
-        console.log(firstNumber);
+        displayText += secondNumber;
+        updateDisplay();
     }
 }
+
+function setOperator(value) {
+    if (!firstInputComplete) {
+        firstInputComplete = true;
+        operator = value;
+        displayText += " " + operator + " ";
+        updateDisplay();
+    } else if (!secondInputComplete) {
+        secondInputComplete = true;
+        displayText = operate(Number(firstNumber), operator, Number(secondNumber));
+        updateDisplay();
+    }
+}
+
+function updateDisplay() {
+    display.textContent = displayText;
+}
+
+// function calculate() {
+//     firstInputComplete
+
+//     secondNumber = ""
+//     secondInputComplete = false;
+//     return operate(Number(firstNumber), operator, Number(secondNumber));
+// }
 
 function add(a, b) {
     return a + b;
@@ -65,16 +94,16 @@ function operate(firstNum, action, secondNum) {
         case "-":
             result = subtract(firstNum, secondNum);
             break;
-        case "*":
+        case "×":
             result = multiply(firstNum, secondNum);
             break;
-        case "/":
+        case "÷":
             result = divide(firstNum, secondNum);
             break;
-        case "%":
+        case "MOD":
             result = getRemainder(firstNum, secondNum);
             break;
-        case "^":
+        case "POW":
             result = exponentiate(firstNum, secondNum);
             break;
         default:
