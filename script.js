@@ -18,6 +18,8 @@ buttons.forEach((button) => {
             setOperator(button.textContent);
         } else if (button.id == "equal") {
             evaluateEquation();
+        } else if (button.id == "clear-all") {
+            clearAll();
         }
     });
 });
@@ -56,6 +58,16 @@ function evaluateEquation() {
     secondInputComplete = false;
 
     refreshDisplay(firstNumber);
+}
+
+function clearAll() {
+    firstNumber = ""
+    firstInputComplete = false;
+
+    secondNumber = ""
+    secondInputComplete = false;
+
+    refreshDisplay("");
 }
 
 function add(a, b) {
