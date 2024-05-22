@@ -1,6 +1,35 @@
-let firstNumber;
-let operator;
-let secondNumber;
+let firstNumber = "";
+let operator = "";
+let secondNumber = "";
+
+let firstInputComplete = false;
+let secondInputComplete = false;
+
+const display = document.querySelector(".display-area");
+console.log(display);
+
+const buttons = Array.from(document.querySelectorAll("button"));
+console.log(buttons);
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (button.classList.contains("number")) {
+            buildNumber(button.textContent);
+        } else if (button.classList.contains("function")) {
+            //TBD
+        }
+    });
+});
+
+function buildNumber(value) {
+    if (!firstInputComplete) {
+        firstNumber += value;
+        console.log(firstNumber);
+    } else if (!secondInputComplete) {
+        secondNumber += value;
+        console.log(firstNumber);
+    }
+}
 
 function add(a, b) {
     return a + b;
