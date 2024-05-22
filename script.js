@@ -17,8 +17,7 @@ buttons.forEach((button) => {
         } else if (button.classList.contains("math-op")) {
             setOperator(button.textContent);
         } else if (button.id == "equal") {
-            displayText = operate(Number(firstNumber), operator, Number(secondNumber));
-            updateDisplay();
+            evaluateEquation();
         }
     });
 });
@@ -26,12 +25,10 @@ buttons.forEach((button) => {
 function buildNumber(value) {
     if (!firstInputComplete) {
         firstNumber += value;
-        displayText = firstNumber;
-        updateDisplay();
+        refreshDisplay(firstNumber);
     } else if (!secondInputComplete) {
         secondNumber += value;
-        displayText += secondNumber;
-        updateDisplay();
+        refreshDisplay(displayText + secondNumber);
     }
 }
 
@@ -39,26 +36,27 @@ function setOperator(value) {
     if (!firstInputComplete) {
         firstInputComplete = true;
         operator = value;
-        displayText += " " + operator + " ";
-        updateDisplay();
+        refreshDisplay(displayText + " " + operator + " ");
     } else if (!secondInputComplete) {
         secondInputComplete = true;
-        displayText = operate(Number(firstNumber), operator, Number(secondNumber));
-        updateDisplay();
+        evaluateEquation();
     }
 }
 
-function updateDisplay() {
+function refreshDisplay(value) {
+    displayText = value;
     display.textContent = displayText;
 }
 
-// function calculate() {
-//     firstInputComplete
+function evaluateEquation() {
+    firstNumber = operate(Number(firstNumber), operator, Number(secondNumber))
+    firstInputComplete = false;
 
-//     secondNumber = ""
-//     secondInputComplete = false;
-//     return operate(Number(firstNumber), operator, Number(secondNumber));
-// }
+    secondNumber = ""
+    secondInputComplete = false;
+
+    refreshDisplay(firstNumber);
+}
 
 function add(a, b) {
     return a + b;
@@ -112,18 +110,3 @@ function operate(firstNum, action, secondNum) {
 
     return result;
 }
-
-// console.log(add(2,3));
-// console.log(subtract(2,3));
-// console.log(multiply(2,3));
-// console.log(divide(2,3));
-// console.log(getRemainder(2,3));
-// console.log(exponentiate(2,3));
-
-// console.log(operate(2,"+",3));
-// console.log(operate(2,"-",3));
-// console.log(operate(2,"*",3));
-// console.log(operate(2,"/",3));
-// console.log(operate(2,"#",3));
-// console.log(operate(2,"%",3));
-// console.log(operate(2,"^",3));
