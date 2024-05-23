@@ -56,13 +56,15 @@ function refreshDisplay(value) {
 }
 
 function evaluateEquation() {
-    firstNumber = operate(Number(firstNumber), operator, Number(secondNumber))
-    firstInputComplete = false;
+    if (firstNumber != "" && secondNumber != "") {
+        firstNumber = operate(Number(firstNumber), operator, Number(secondNumber))
+        firstInputComplete = false;
 
-    secondNumber = ""
-    secondInputComplete = false;
+        secondNumber = ""
+        secondInputComplete = false;
 
-    refreshDisplay(firstNumber);
+        refreshDisplay(firstNumber);
+    }
 }
 
 function clearAll() {
