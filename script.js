@@ -35,18 +35,18 @@ function buildNumber(value) {
 }
 
 function setOperator(value) {
-    if (firstNumber != "") {
-        if (!firstInputComplete) {
-            firstInputComplete = true;
-            operator = value;
-            refreshDisplay(firstNumber + " " + operator + " ");
-        } else if (!secondInputComplete && secondNumber != "") {
-            secondInputComplete = true;
-            evaluateEquation();
-            operator = value;
-            refreshDisplay(firstNumber + " " + operator + " ");
-            firstInputComplete = true;
-        }
+    if (!firstInputComplete && firstNumber != "") {
+        firstInputComplete = true;
+        operator = value;
+        refreshDisplay(firstNumber + " " + operator + " ");
+    } else if (!secondInputComplete && firstNumber != "" && secondNumber != "") {
+        secondInputComplete = true;
+        evaluateEquation();
+        operator = value;
+        refreshDisplay(firstNumber + " " + operator + " ");
+        firstInputComplete = true;
+    } else if (value == "-") {
+        buildNumber(value);
     }
 }
 
