@@ -42,6 +42,9 @@ function setOperator(value) {
     } else if (!secondInputComplete) {
         secondInputComplete = true;
         evaluateEquation();
+        operator = value;
+        refreshDisplay(displayText + " " + operator + " ");
+        firstInputComplete = true;
     }
 }
 
