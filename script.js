@@ -12,7 +12,7 @@ const buttons = Array.from(document.querySelectorAll("button"));
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (button.classList.contains("number")) {
+        if (button.classList.contains("number") || button.id == "decimal") {
             buildNumber(button.textContent);
         } else if (button.classList.contains("math-op")) {
             setOperator(button.textContent);
@@ -25,12 +25,12 @@ buttons.forEach((button) => {
 });
 
 function buildNumber(value) {
-    if (!firstInputComplete) {
+    if (!firstInputComplete && !isDoubleDecimal(value, firstNumber)) {
         firstNumber += value;
         refreshDisplay(firstNumber);
-    } else if (!secondInputComplete) {
+    } else if (!secondInputComplete && !isDoubleDecimal(value, secondNumber)) {
         secondNumber += value;
-        refreshDisplay(displayText + secondNumber);
+        refreshDisplay(firstNumber + " " + operator + " " + secondNumber);
     }
 }
 
@@ -68,6 +68,10 @@ function clearAll() {
     secondInputComplete = false;
 
     refreshDisplay("");
+}
+
+function isDoubleDecimal(value, targetNumber) {
+    return (value == "." && targetNumber.includes("."));
 }
 
 function add(a, b) {
