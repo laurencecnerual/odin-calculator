@@ -88,7 +88,7 @@ function clearAll() {
 }
 
 function hasDoubleSymbols(value, targetNumber) {
-    return (value == "." && targetNumber.includes(".") || value == "-" && targetNumber.includes("-"));
+    return (value == "." && targetNumber.includes(".") || value == "-" && targetNumber.includes("-") || value == "-" && targetNumber.includes("."));
 }
 
 function undo() {
@@ -106,7 +106,7 @@ function undo() {
 }
 
 function isValid(targetNumber) {
-    return (targetNumber != "" && targetNumber != "." && targetNumber != "-");
+    return (targetNumber != "" && targetNumber != "." && targetNumber != "-" && targetNumber != "-.");
 }
 
 function add(a, b) {
