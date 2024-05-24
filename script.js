@@ -20,6 +20,8 @@ buttons.forEach((button) => {
             evaluateEquation();
         } else if (button.id == "clear-all") {
             clearAll();
+        } else if (button.id == "backspace") {
+            undo();
         }
     });
 });
@@ -60,6 +62,8 @@ function evaluateEquation() {
         firstNumber = operate(Number(firstNumber), operator, Number(secondNumber))
         firstInputComplete = false;
 
+        operator = ""
+
         secondNumber = ""
         secondInputComplete = false;
 
@@ -71,6 +75,8 @@ function clearAll() {
     firstNumber = ""
     firstInputComplete = false;
 
+    operator = ""
+
     secondNumber = ""
     secondInputComplete = false;
 
@@ -79,6 +85,20 @@ function clearAll() {
 
 function isDoubleDecimal(value, targetNumber) {
     return (value == "." && targetNumber.includes("."));
+}
+
+function undo() {
+    if (secondNumber != "") {
+        secondNumber = secondNumber.slice(0, -1);
+        refreshDisplay(firstNumber + " " + operator + " " + secondNumber)
+    } else if (operator != "") {
+        operator = "";
+        refreshDisplay(firstNumber);
+        firstInputComplete = false;
+    } else if (firstNumber != "") {
+        firstNumber = firstNumber.slice(0, -1);
+        refreshDisplay(firstNumber);
+    }
 }
 
 function add(a, b) {
@@ -131,5 +151,5 @@ function operate(firstNum, action, secondNum) {
             result = "INVALID OPERATOR";
     }
 
-    return result;
+    return result.toString();
 }
