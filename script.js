@@ -27,21 +27,25 @@ buttons.forEach((button) => {
 });
 
 function buildNumber(value) {
-    if (!firstInputComplete && !isDoubleDecimal(value, firstNumber)) {
-        firstNumber += value;
-        refreshDisplay(firstNumber);
-    } else if (!secondInputComplete && !isDoubleDecimal(value, secondNumber)) {
-        secondNumber += value;
-        refreshDisplay(firstNumber + " " + operator + " " + secondNumber);
+    if (!firstInputComplete) {
+        if (!hasDoubleSymbols(value, firstNumber)) {
+            firstNumber += value;
+            refreshDisplay(firstNumber);
+        }
+    } else if (!secondInputComplete) {
+        if (!hasDoubleSymbols(value, secondNumber)) {
+            secondNumber += value;
+            refreshDisplay(firstNumber + " " + operator + " " + secondNumber);
+        }
     }
 }
 
 function setOperator(value) {
-    if (!firstInputComplete && firstNumber != "") {
+    if (!firstInputComplete && isValid(firstNumber)) {
         firstInputComplete = true;
         operator = value;
         refreshDisplay(firstNumber + " " + operator + " ");
-    } else if (!secondInputComplete && firstNumber != "" && secondNumber != "") {
+    } else if (!secondInputComplete && isValid(firstNumber) && isValid(secondNumber)) {
         secondInputComplete = true;
         evaluateEquation();
         operator = value;
@@ -58,7 +62,7 @@ function refreshDisplay(value) {
 }
 
 function evaluateEquation() {
-    if (firstNumber != "" && secondNumber != "") {
+    if (isValid(firstNumber) && isValid(secondNumber)) {
         firstNumber = operate(Number(firstNumber), operator, Number(secondNumber))
         firstInputComplete = false;
 
@@ -83,8 +87,8 @@ function clearAll() {
     refreshDisplay("");
 }
 
-function isDoubleDecimal(value, targetNumber) {
-    return (value == "." && targetNumber.includes("."));
+function hasDoubleSymbols(value, targetNumber) {
+    return (value == "." && targetNumber.includes(".") || value == "-" && targetNumber.includes("-"));
 }
 
 function undo() {
@@ -99,6 +103,10 @@ function undo() {
         firstNumber = firstNumber.slice(0, -1);
         refreshDisplay(firstNumber);
     }
+}
+
+function isValid(targetNumber) {
+    return (targetNumber != "" && targetNumber != "." && targetNumber != "-");
 }
 
 function add(a, b) {
