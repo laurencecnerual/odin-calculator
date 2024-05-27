@@ -6,8 +6,9 @@ let displayText = "";
 let firstInputComplete = false;
 let secondInputComplete = false;
 
-let operatorError = "BAD OPERATOR";
-let divideByZeroError = "NICE TRY";
+const operatorError = "BAD OPERATOR";
+const divideByZeroError = "NICE TRY";
+const nthPlaceRounding = 1000000;
 
 const display = document.querySelector(".display-area");
 
@@ -51,9 +52,12 @@ function setOperator(value) {
     } else if (!secondInputComplete && isValid(firstNumber) && isValid(secondNumber)) {
         secondInputComplete = true;
         evaluateEquation();
-        operator = value;
-        refreshDisplay(firstNumber + " " + operator + " ");
-        firstInputComplete = true;
+        
+        if (!isErrorMessage(firstNumber)) {
+            operator = value;
+            refreshDisplay(firstNumber + " " + operator + " ");
+            firstInputComplete = true;
+        }
     } else if (value == "-" && !isErrorMessage(firstNumber)) {
         buildNumber(value);
     }
@@ -166,5 +170,9 @@ function operate(firstNum, action, secondNum) {
             result = operatorError;
     }
 
-    return result.toString();
+    return !isErrorMessage(result) ? round(result).toString() : result;
+}
+
+function round(targetNumber) {
+    return Math.round((targetNumber + Number.EPSILON) * nthPlaceRounding) / nthPlaceRounding;
 }
