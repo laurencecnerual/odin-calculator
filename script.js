@@ -6,6 +6,9 @@ let displayText = "";
 let firstInputComplete = false;
 let secondInputComplete = false;
 
+let operatorError = "BAD OPERATOR";
+let divideByZeroError = "NICE TRY";
+
 const display = document.querySelector(".display-area");
 
 const buttons = Array.from(document.querySelectorAll("button"));
@@ -51,7 +54,7 @@ function setOperator(value) {
         operator = value;
         refreshDisplay(firstNumber + " " + operator + " ");
         firstInputComplete = true;
-    } else if (value == "-") {
+    } else if (value == "-" && !isErrorMessage(firstNumber)) {
         buildNumber(value);
     }
 }
@@ -106,7 +109,11 @@ function undo() {
 }
 
 function isValid(targetNumber) {
-    return (targetNumber != "" && targetNumber != "." && targetNumber != "-" && targetNumber != "-.");
+    return (targetNumber != "" && targetNumber != "." && targetNumber != "-" && targetNumber != "-." && !isErrorMessage(targetNumber));
+}
+
+function isErrorMessage(targetNumber) {
+    return (targetNumber.length > 0 && isNaN(targetNumber));
 }
 
 function add(a, b) {
@@ -122,7 +129,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    return b != 0? a / b : divideByZeroError;
 }
 
 function getRemainder(a, b) {
@@ -156,7 +163,7 @@ function operate(firstNum, action, secondNum) {
             result = exponentiate(firstNum, secondNum);
             break;
         default:
-            result = "INVALID OPERATOR";
+            result = operatorError;
     }
 
     return result.toString();
