@@ -10,6 +10,9 @@ body {
     border: 1px solid black;
     display: flex;
     flex-direction: column;
+    padding: 15px;
+    background-color: rgb(74, 221, 214);
+    border-radius: 10px;
 }
 
 .calculator, .display-area, .key-row {
@@ -22,14 +25,53 @@ body {
     text-align: right;
     min-height: 80px;
     word-wrap: break-word;
+    margin-bottom: 10px;
+    background-color: rgb(220, 220, 220);
 }
 
 .key-row {
     display: flex;
     height: 80px;
+    gap: 5px;
 }
 
 button {
     width: 90px;
     font-size: x-large;
+    border-radius: 50%;
+    color: white;
+    margin: 2px;
+    border: 1px solid black;
+}
+
+button:hover {
+    filter: brightness(60%);
+}
+
+button:active {
+    filter: brightness(150%);
+}
+
+#clear-all {
+    background-color: green;
+}
+
+#equal {
+    background-color: rgb(0, 60, 255);
+}
+
+.math-op {
+    background-color: rgb(105, 20, 167);
+}
+
+.number, #decimal {
+    background-color: rgb(125, 125, 125);
+}
+
+#backspace {
+    background-color: orangered;
+}
+
+#addition, #subtraction, #multiplication, #division, #equal {
+    font-size: 40px;
 }
