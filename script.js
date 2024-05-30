@@ -32,12 +32,12 @@ buttons.forEach((button) => {
 
 function buildNumber(value) {
     if (!firstInputComplete) {
-        if (isFinite(firstNumber) && !hasDoubleSymbols(value, firstNumber)) {
+        if (canBuild(value, firstNumber)) {
             firstNumber += value;
             refreshDisplay(firstNumber);
         }
     } else if (!secondInputComplete) {
-        if (isFinite(secondNumber) && !hasDoubleSymbols(value, secondNumber)) {
+        if (canBuild(value, secondNumber)) {
             secondNumber += value;
             refreshDisplay(firstNumber + " " + operator + " " + secondNumber);
         }
@@ -118,6 +118,14 @@ function isValid(targetNumber) {
 
 function isErrorMessage(targetNumber) {
     return (targetNumber.length > 0 && isNaN(targetNumber));
+}
+
+function isLeadingSymbol(targetNumber) {
+    return (targetNumber == "." || targetNumber == "-");
+}
+
+function canBuild(value, targetNumber) {
+    return ((isFinite(targetNumber) || isLeadingSymbol(targetNumber)) && !hasDoubleSymbols(value, targetNumber));
 }
 
 function add(a, b) {
