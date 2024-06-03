@@ -1,5 +1,6 @@
 body {
-    height: 840px;
+    height: 100vh;
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +28,7 @@ body {
     word-wrap: break-word;
     margin-bottom: 10px;
     background-color: rgb(220, 220, 220);
+    font-family: sans-serif;
 }
 
 .key-row {
